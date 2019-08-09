@@ -7,6 +7,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Telepathy</title>
   <style>
+    html,body{
+      padding: 0;
+      margin: 0;
+      font-family: PingFangSC-Regular, Arial, Tahoma, sans-serif;
+      height: 100vh;
+    }
+    body{
+      display: flex;
+      flex-direction: column;
+    }
     .flex {
       display: flex;
       align-items: center;
@@ -15,10 +25,13 @@
     .btn {
       border-radius: 4px;
       border: 1px solid #ccc;
-      padding: 6px 10px;
+      height: 40px;
+      width: 80px;
+      line-height: 40px;
       text-align: center;
       cursor: pointer;
       user-select: none;
+      margin: 10px;
     }
 
     .btn:hover {
@@ -28,23 +41,38 @@
     .btn:active {
       transform: translate(0px, 2px);
     }
+    .title{
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      flex: 0 0 auto;
+      font-size: 26px;
+      padding-top: 80px;
+    }
+    .content{
+      flex: 1 1 auto;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 
 <body>
-  Hello Telepathy
-  <div class="flex">
-    <div>
-      <div id="left" class="btn">Left</div>
-    </div>
-    <div>
-      <div id="up" class="btn">Up</div>
-      <div id="down" class="btn">Down</div>
-    </div>
-    <div>
-      <div id="right" class="btn">Right</div>
-    </div>
+  <div class="title">
+    Telepathy
+</div>
+<div class="content flex">
+  <div>
+    <div id="left" class="btn">Left</div>
   </div>
+  <div>
+    <div id="up" class="btn">Up</div>
+    <div id="down" class="btn">Down</div>
+  </div>
+  <div>
+    <div id="right" class="btn">Right</div>
+  </div>
+</div>
   <script>
     const socket = new WebSocket('ws://172.18.5.11:3000');
     // Connection opened
