@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Telepathy</title>
+  <style>
+    .flex {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      padding: 6px 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background-color: #f2f2f2;
+    }
+
+    .btn:active {
+      transform: translate(0px, 2px);
+    }
+  </style>
+</head>
+
+<body>
+  Hello Telepathy
+  <div class="flex">
+    <div>
+      <div id="left" class="btn">Left</div>
+    </div>
+    <div>
+      <div id="up" class="btn">Up</div>
+      <div id="down" class="btn">Down</div>
+    </div>
+    <div>
+      <div id="right" class="btn">Right</div>
+    </div>
+  </div>
+  <script>
+    const socket = new WebSocket('ws://172.18.4.50:3000');
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+      socket.send('sid_1123');
+    });
+
+    ['left', 'up', 'down', 'right'].forEach(item => {
+      $(`#${item}`).addEventListener('click', _ => socket.send(`${item}_1123`))
+    })
+    function $(selector) {
+      return document.querySelector(selector)
+    }
+  </script>
+</body>
+
+</html>
