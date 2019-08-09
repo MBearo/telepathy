@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1343578_21sodf995ye.css">
   <title>Telepathy</title>
   <style>
-    html,body{
+    html,
+    body {
       padding: 0;
       margin: 0;
       font-family: PingFangSC-Regular, Arial, Tahoma, sans-serif;
@@ -16,10 +17,12 @@
       background-color: #333;
       color: white;
     }
-    body{
+
+    body {
       display: flex;
       flex-direction: column;
     }
+
     .flex {
       display: flex;
       align-items: center;
@@ -36,10 +39,12 @@
       user-select: none;
       margin: 10px;
     }
-    .btn>i{
+
+    .btn>i {
       font-size: 90px;
       transition: all .2s;
     }
+
     .btn>i:hover {
       color: #f2f2f2;
     }
@@ -47,7 +52,8 @@
     .btn>i:active {
       transform: translate(0px, 10px);
     }
-    .title{
+
+    .title {
       font-weight: bold;
       text-align: center;
       width: 100%;
@@ -55,24 +61,29 @@
       font-size: 26px;
       padding-top: 80px;
     }
-    .content{
+
+    .content {
       flex: 1 1 auto;
       justify-content: center;
       align-items: center;
     }
-    #up{
+
+    #up {
       position: relative;
       top: -20px;
     }
-    #down{
+
+    #down {
       position: relative;
       bottom: -20px;
     }
-    #left{
+
+    #left {
       position: relative;
       left: 30px;
     }
-    #right{
+
+    #right {
       position: relative;
       right: 30px;
     }
@@ -82,9 +93,9 @@
 <body>
   <div class="title">
     Telepathy
-</div>
-<div class="content flex">
-  <!-- <div>
+  </div>
+  <div class="content flex">
+    <!-- <div>
     <div id="left" class="btn">Left</div>
   </div>
   <div>
@@ -94,28 +105,28 @@
   <div>
     <div id="right" class="btn">Right</div>
   </div> -->
-  <div>
+    <div>
       <div id="left" class="btn">
         <i class="iconfont icon-left-circle"></i>
       </div>
-  </div>
-  <div>
+    </div>
+    <div>
       <div id="up" class="btn">
         <i class="iconfont icon-up-circle"></i>
       </div>
       <div id="down" class="btn">
-          <i class="iconfont icon-down-circle"></i>
-        </div>
-  </div>
-  <div>
+        <i class="iconfont icon-down-circle"></i>
+      </div>
+    </div>
+    <div>
       <div id="right" class="btn">
-          <i class="iconfont icon-right-circle"></i>
-        </div>
+        <i class="iconfont icon-right-circle"></i>
+      </div>
+    </div>
   </div>
-</div>
   <script>
     const socket = new WebSocket('ws://172.18.5.11:3000');
-    let hiddenTime=0
+    let hiddenTime = 0
     // Connection opened
     socket.addEventListener('open', function (event) {
       socket.send('sid_1123');
@@ -125,8 +136,18 @@
       $(`#${item}`).addEventListener('click', _ => socket.send(`${item}_1123`))
     })
 
-
-    document.addEventListener('visibilitychange', function () {
+    let visibilityChange
+    if (typeof document.hidden !== 'undefined') { // Opera 12.10 and Firefox 18 and later support
+      hidden = 'hidden'
+      visibilityChange = 'visibilitychange'
+    } else if (typeof document.msHidden !== 'undefined') {
+      hidden = 'msHidden'
+      visibilityChange = 'msvisibilitychange'
+    } else if (typeof document.webkitHidden !== 'undefined') {
+      hidden = 'webkitHidden'
+      visibilityChange = 'webkitvisibilitychange'
+    }
+    document.addEventListener(visibilityChange, function () {
       if (document.visibilityState == 'hidden') {
         hiddenTime = new Date().getTime()	//记录页面隐藏时间
       } else {
@@ -143,9 +164,9 @@
       }
     })
 
-      function $(selector) {
-        return document.querySelector(selector)
-      }
+    function $(selector) {
+      return document.querySelector(selector)
+    }
   </script>
 </body>
 
