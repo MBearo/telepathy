@@ -152,13 +152,20 @@
         hiddenTime = new Date().getTime()	//记录页面隐藏时间
       } else {
         let visibleTime = new Date().getTime();
-        if ((visibleTime - hiddenTime) / 1000 > 0) {	//页面再次可见的时间-隐藏时间>10S,重连
+        if ((visibleTime - hiddenTime) / 1000 > 1) {	//页面再次可见的时间-隐藏时间>10S,重连
           socket.close == 'function' && socket.close();    //先主动关闭连接
           console.log('主动关闭连接后重连');
           setTimeout(function () {
             socket = new WebSocket('ws://172.18.4.50:3000');
+            socket.addEventListener('open', function (event) {
+      socket.send('sid_1123');
+    });
 
-            //打开连接，使用的vuejs，这是websocket的连接方法
+    ['left', 'up', 'down', 'right'].forEach(item => {
+      $(`#${item}`).addEventListener('click', _ => socket.send(`${item}_1123`))
+    })
+
+            console.log(socket)
           }, 1500);    //1.5S后重连
         } else {
           console.log('还没有到断开的时间')
